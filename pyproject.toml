@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "finance-bot"
+version = "0.1.0"
+description = ""
+authors = ["Ilya Osipov <070809010@mail.ru>"]
+readme = "README.md"
+packages = [{include = "finance_bot"}]
+
+[tool.poetry.dependencies]
+python = "^3.7.1"
+numpy = "1.24.3"
+environs = "^9.5.0"
+yfinance = "0.2.18"
+python-telegram-bot = "^13.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
