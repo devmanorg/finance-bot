@@ -31,39 +31,43 @@
 - [Download Python](https://www.python.org/downloads/)
 
 Скачайте репозиторий командой:
+
 ```sh
 $ git clone https://github.com/devmanorg/finance-bot
 $ cd finance-bot
 ```
+
 Установите менеджер зависимостей [Poetry](https://python-poetry.org/docs/), если ещё не установлен. Cоберите зависимости:
+
 ```sh
-poetry install
+$ poetry install
 ```
 
 Затем, активируйте окружение:
+
 ```sh
-poetry shell
+$ poetry shell
 ```
 
-
 Далее, создайте тестового бота у [@BotFather](https://t.me/BotFather), получите от него токен такого вида:
-```sh
+
+```text
 9387204215:QELDaGlFj-l9IUfB2rpk-CANFub4B8g3
 ```
 
 Создайте файл `.env` и положите в него токен:
-```sh
+
+```env
 TELEGRAM_BOT_TOKEN=9387204215:QELDaGlFj-l9IUfB2rpk-CANFub4B8g3
 ```
 
-Перейдите в созданного бота и нажмите кнопку `START` внизу, чтобы инициировать диалог.
-
 Запустите бота:
-```
-python bot.py
+
+```sh
+$ python bot.py --autoreload
 ```
 
-В консоль ничего не выведется. Напишите боту в Telegram `/start`, он должен вам ответить.
+Зайдите в чат к ранее созданному боту и отправьте ему команду `/start`, он должен вам ответить.
 
 <a name="how-to-commit"></a>
 #### Как закоммитить код
@@ -110,11 +114,13 @@ poetry shell
 ```
 
 Для тестирования используется `pytest`, тесты запускаются просто:
+
 ```sh
-pytest
+$ pytest
 ```
 
 Если вы хотите запустить один конакретный тест, передайте аргументом "{название_файла}::{название_функции}", пример:
+
 ```sh
-pytest test_sample.py::test_yesterday_trading_prices
+$ pytest test_sample.py::test_yesterday_trading_prices
 ```
