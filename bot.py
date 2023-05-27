@@ -94,7 +94,6 @@ def yesterday_stocks_job(context: CallbackContext) -> None:
 def main(settings: Settings) -> None:
     updater = Updater(Settings.TELEGRAM_BOT_TOKEN)
     dispatcher = updater.dispatcher
-    job_queue = updater.job_queue
 
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("current_stocks", current_stocks))
