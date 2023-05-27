@@ -14,7 +14,11 @@ python-telegram-bot = "^13.1"
 pytest = "7.3.1"
 pytest-mock = "3.10.0"
 pydantic = "1.10.8"
-
+flake8 = "6.0.*"
+flake8-cognitive-complexity = "0.1.*"
+flake8-commas = "2.1.*"
+flake8-builtins = "2.1.*"
+flake8-docstrings = "1.7.*"
 
 [build-system]
 requires = ["poetry-core"]

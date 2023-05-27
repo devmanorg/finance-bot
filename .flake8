@@ -1,0 +1,6 @@
+[flake8]
+# W503 conflicts with W504 https://github.com/mila-iqia/cookiecutter-pyml/issues/10
+ignore = D100, D101, D102, D103, D104, D105, D106, D107, W503 
+max-line-length = 120
+max-complexity = 6
+count = true
