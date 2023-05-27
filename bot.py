@@ -16,7 +16,7 @@ class Settings(BaseSettings):
         env_nested_delimiter = '__'
 
 
-portfolio = {
+PORTFOLIO = {
     'MSFT': 20,
     'AMZN': 15,
     'GOOGL': 10,
@@ -63,7 +63,7 @@ def current_stocks(update: Update, context: CallbackContext) -> None:
 
     day_revenue = 0
 
-    for ticker, amount in portfolio.items():
+    for ticker, amount in PORTFOLIO.items():
         open_price, close_price = get_current_trading_prices(ticker)
         diff = close_price - open_price
         revenue = diff * amount
@@ -80,7 +80,7 @@ def yesterday_stocks_job(context: CallbackContext) -> None:
 
     day_revenue = 0
 
-    for ticker, amount in portfolio.items():
+    for ticker, amount in PORTFOLIO.items():
         open_price, close_price = get_yesterday_trading_prices(ticker)
         diff = close_price - open_price
         revenue = diff * amount
