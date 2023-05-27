@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import datetime
 from textwrap import dedent
 from typing import cast
