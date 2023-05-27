@@ -35,15 +35,16 @@
 $ git clone https://github.com/devmanorg/finance-bot
 $ cd finance-bot
 ```
-Установите менеджер зависимостей [Poetry](https://python-poetry.org/docs/), если ещё не установлен. Затем, активируйте окружение:
+Установите менеджер зависимостей [Poetry](https://python-poetry.org/docs/), если ещё не установлен. Cоберите зависимости:
+```sh
+poetry install
+```
+
+Затем, активируйте окружение:
 ```sh
 poetry shell
 ```
 
-И соберите зависимости:
-```sh
-poetry install
-```
 
 Далее, создайте тестового бота у [@BotFather](https://t.me/BotFather), получите от него токен такого вида:
 ```sh
