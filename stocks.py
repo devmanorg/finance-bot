@@ -1,4 +1,4 @@
-import yfinance
+import yfinance  # type: ignore
 
 
 def get_yesterday_trading_prices(ticker: str) -> tuple[float, float]:

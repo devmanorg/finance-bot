@@ -1,9 +1,10 @@
 import datetime
 from textwrap import dedent
+from typing import cast
 
 from pydantic import BaseSettings
-from telegram import Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram import Update, Chat
+from telegram.ext import Updater, CommandHandler, CallbackContext, JobQueue
 from stocks import get_yesterday_trading_prices
 from stocks import get_current_trading_prices
 
@@ -26,14 +27,15 @@ PORTFOLIO = {
 
 
 def start(update: Update, context: CallbackContext) -> None:
-    chat_id = update.effective_chat.id
+    chat_id = cast(Chat, update.effective_chat).id
     update.message.reply_text('Привет! Я твой биржевой помощник!')
 
     # This needed to exclude the situation when
     # user presses /start multiple times and gets multiple jobs
     job_title = f'yesterday-stocks#{chat_id}'
-    if job_title not in {job.name for job in context.job_queue.jobs()}:
-        context.job_queue.run_daily(
+    job_queue = cast(JobQueue, context.job_queue)
+    if job_title not in {job.name for job in job_queue.jobs()}:
+        job_queue.run_daily(
             yesterday_stocks_job,
             time=datetime.time(hour=7),
             name=job_title,
@@ -61,7 +63,7 @@ def format_ticker_stats(ticker: str, amount: int, open_price: float, close_price
 def current_stocks(update: Update, context: CallbackContext) -> None:
     msg = 'Ваши фин. показатели на текущий момент:\n\n'
 
-    day_revenue = 0
+    day_revenue = 0.0
 
     for ticker, amount in PORTFOLIO.items():
         open_price, close_price = get_current_trading_prices(ticker)
@@ -78,7 +80,7 @@ def current_stocks(update: Update, context: CallbackContext) -> None:
 def yesterday_stocks_job(context: CallbackContext) -> None:
     msg = 'Ваши фин. показатели по итогу прошлого дня:\n\n'
 
-    day_revenue = 0
+    day_revenue = 0.0
 
     for ticker, amount in PORTFOLIO.items():
         open_price, close_price = get_yesterday_trading_prices(ticker)
@@ -94,8 +96,8 @@ def yesterday_stocks_job(context: CallbackContext) -> None:
 
 def main(settings: Settings) -> None:
     updater = Updater(settings.TELEGRAM_BOT_TOKEN)
-    dispatcher = updater.dispatcher
 
+    dispatcher = updater.dispatcher   # type: ignore
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("current_stocks", current_stocks))
 
