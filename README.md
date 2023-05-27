@@ -50,7 +50,19 @@ poetry install
 9387204215:QELDaGlFj-l9IUfB2rpk-CANFub4B8g3
 ```
 
-<...Создайте переменные окружения>
+Создайте файл `.env` и положите в него токен:
+```sh
+TELEGRAM_BOT_TOKEN=9387204215:QELDaGlFj-l9IUfB2rpk-CANFub4B8g3
+```
+
+Перейдите в созданного бота и нажмите кнопку `START` внизу, чтобы инициировать диалог.
+
+Запустите бота:
+```
+python bot.py
+```
+
+В консоль ничего не выведется. Напишите боту в Telegram `/start`, он должен вам ответить.
 
 <a name="how-to-commit"></a>
 #### Как закоммитить код
@@ -66,8 +78,13 @@ $ pre-commit install
 <a name="run-python-linters"></a>
 #### Как запустить линтеры Python
 
-
+#TODO
 
 
 <a name="run-tests"></a>
 #### Как запустить тесты
+
+Для тестирования используется `pytest`, тесты запускаются просто:
+```sh
+pytest
+```
