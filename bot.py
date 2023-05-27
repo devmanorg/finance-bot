@@ -39,6 +39,7 @@ def start(update: Update, context: CallbackContext) -> None:
             yesterday_stocks_job,
             time=datetime.time(hour=7),
             name=job_title,
+            context={'chat_id': chat_id}
         )
 
 
@@ -80,6 +81,7 @@ def current_stocks(update: Update, context: CallbackContext) -> None:
 def yesterday_stocks_job(context: CallbackContext) -> None:
     msg = 'Ваши фин. показатели по итогу прошлого дня:\n\n'
 
+    chat_id = context.job.context['chat_id']
     day_revenue = 0.0
 
     for ticker, amount in PORTFOLIO.items():
@@ -91,7 +93,7 @@ def yesterday_stocks_job(context: CallbackContext) -> None:
     msg += dedent(f'''
         Итоговая разница за день: {day_revenue:,.1f}$
     ''')
-    context.bot.message.reply_text(msg)
+    context.bot.send_message(chat_id=chat_id, text=msg)
 
 
 def main(settings: Settings) -> None:
