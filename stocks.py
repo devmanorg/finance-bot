@@ -5,7 +5,6 @@ import yfinance
 
 def get_yesterday_trading_prices(ticker: str) -> Tuple[float, float]: 
     yahoo_ticker_handler = yfinance.Ticker(ticker)
-    print(yahoo_ticker_handler)
     history = yahoo_ticker_handler.history(period="1mo")
     open_price = float(history['Open'][-2])
     close_price = float(history['Close'][-2])
