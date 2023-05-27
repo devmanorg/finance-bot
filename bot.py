@@ -4,7 +4,7 @@ from typing import cast
 
 from pydantic import BaseSettings
 from telegram import Update, Chat
-from telegram.ext import Updater, CommandHandler, CallbackContext, JobQueue
+from telegram.ext import Updater, CommandHandler, CallbackContext, JobQueue, Job
 from stocks import get_yesterday_trading_prices
 from stocks import get_current_trading_prices
 
@@ -39,7 +39,7 @@ def start(update: Update, context: CallbackContext) -> None:
             yesterday_stocks_job,
             time=datetime.time(hour=7),
             name=job_title,
-            context={'chat_id': chat_id}
+            context={'chat_id': chat_id},
         )
 
 
@@ -81,7 +81,10 @@ def current_stocks(update: Update, context: CallbackContext) -> None:
 def yesterday_stocks_job(context: CallbackContext) -> None:
     msg = 'Ваши фин. показатели по итогу прошлого дня:\n\n'
 
-    chat_id = context.job.context['chat_id']
+    job = cast(Job, context.job)
+    job_context = cast(CallbackContext, job.context)
+    job_context = dict(job_context)  # type: ignore
+    chat_id = job_context['chat_id']  # type: ignore
     day_revenue = 0.0
 
     for ticker, amount in PORTFOLIO.items():
@@ -96,12 +99,27 @@ def yesterday_stocks_job(context: CallbackContext) -> None:
     context.bot.send_message(chat_id=chat_id, text=msg)
 
 
+def yesterday_stocks(update: Update, context: CallbackContext) -> None:
+    chat_id = cast(Chat, update.effective_chat).id
+
+    job_title = f'yesterday-stocks#{chat_id}'
+    job_queue = cast(JobQueue, context.job_queue)
+
+    job_queue.run_once(
+        yesterday_stocks_job,
+        0,
+        name=job_title,
+        context={'chat_id': chat_id},
+    )
+
+
 def main(settings: Settings) -> None:
     updater = Updater(settings.TELEGRAM_BOT_TOKEN)
 
     dispatcher = updater.dispatcher   # type: ignore
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("current_stocks", current_stocks))
+    dispatcher.add_handler(CommandHandler("yesterday_stocks", yesterday_stocks))
 
     updater.start_polling()
     updater.idle()
