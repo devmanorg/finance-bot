@@ -12,6 +12,16 @@ from stocks import get_current_trading_prices
 from watchfiles import run_process
 
 
+def fetch_portfolio():
+    # FIXME Replace this code with fetching data from web service
+    return {
+        'MSFT': 20,
+        'AMZN': 15,
+        'GOOGL': 10,
+        'TSLA': 100,
+    }
+
+
 class Settings(BaseSettings):
     TELEGRAM_BOT_TOKEN: str
 
@@ -69,7 +79,7 @@ def current_stocks(update: Update, context: CallbackContext) -> None:
 
     day_revenue = 0.0
 
-    for ticker, amount in PORTFOLIO.items():
+    for ticker, amount in fetch_portfolio().items():
         open_price, close_price = get_current_trading_prices(ticker)
         diff = close_price - open_price
         revenue = diff * amount
@@ -90,7 +100,7 @@ def yesterday_stocks_job(context: CallbackContext) -> None:
     chat_id = job_context['chat_id']  # type: ignore
     day_revenue = 0.0
 
-    for ticker, amount in PORTFOLIO.items():
+    for ticker, amount in fetch_portfolio().items():
         open_price, close_price = get_yesterday_trading_prices(ticker)
         diff = close_price - open_price
         revenue = diff * amount
