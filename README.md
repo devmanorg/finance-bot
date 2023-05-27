@@ -17,6 +17,7 @@
     2. [Как закоммитить код](#how-to-commit)
     3. [Как запустить линтеры Python](#run-python-linters)
     4. [Как запустить тесты](#run-tests)
+3. [Как развернуть в production-режиме](#production)
 
 
 <a name="development"></a>
@@ -124,3 +125,47 @@ $ pytest
 ```sh
 $ pytest test_sample.py::test_yesterday_trading_prices
 ```
+
+<a name="production"></a>
+#### Как развернуть в production-режиме
+
+
+Для запуска ПО вам понадобятся консольный Git и Python версий 3.10 или выше. Инструкции по их установке:
+
+- [Install Git](https://git-scm.com/book/ru/v2/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5-%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-Git)
+- [Download Python](https://www.python.org/downloads/)
+
+Скачайте репозиторий командой:
+
+```sh
+$ git clone https://github.com/devmanorg/finance-bot
+$ cd finance-bot
+```
+
+Установите менеджер зависимостей [Poetry](https://python-poetry.org/docs/), если ещё не установлен. Cоберите зависимости:
+
+```sh
+$ poetry install
+```
+
+Затем, активируйте окружение:
+
+```sh
+$ poetry shell
+```
+
+Создайте файл `.env` и положите в него токен (укажите настоящий, текущий для примера):
+
+```env
+TELEGRAM_BOT_TOKEN=9387204215:QELDaGlFj-l9IUfB2rpk-CANFub4B8g3
+```
+
+Запустите бота 
+
+```sh
+#TODO: systemd
+```
+
+Зайдите в чат к ранее созданному боту и отправьте ему команду `/start`, он должен вам ответить.
+
+Проверьте, что запустился `job_queue` командой `/yesterday_stocks`. Он должен прислать сообщение с информацией по акциям.
