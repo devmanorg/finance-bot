@@ -92,7 +92,7 @@ def yesterday_stocks_job(context: CallbackContext) -> None:
 
 
 def main(settings: Settings) -> None:
-    updater = Updater(Settings.TELEGRAM_BOT_TOKEN)
+    updater = Updater(settings.TELEGRAM_BOT_TOKEN)
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler("start", start))
@@ -103,4 +103,4 @@ def main(settings: Settings) -> None:
 
 
 if __name__ == '__main__':
-    main()
+    main(Settings())
