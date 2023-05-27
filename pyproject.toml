@@ -6,8 +6,8 @@ authors = ["Ilya Osipov <070809010@mail.ru>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-pandas = "2.0.1"
 python = "^3.10"
+pandas = "2.0.1"
 numpy = "1.24.3"
 yfinance = "0.2.18"
 python-telegram-bot = "^13.1"
