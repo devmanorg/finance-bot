@@ -44,10 +44,10 @@ def format_ticker_stats(ticker: str, amount: int, open_price: float, close_price
     diff = close_price - open_price
     revenue = diff * amount
 
-    if revenue > 0:
-        result = 'заработали'
-    else:
+    if revenue < 0:
         result = 'потеряли'
+    else:
+        result = 'заработали'
 
     return dedent(f'''
         {ticker} ({amount})
