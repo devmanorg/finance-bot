@@ -2,8 +2,8 @@ import datetime
 from textwrap import dedent
 
 from pydantic import BaseSettings
-from telegram.ext import Updater, CommandHandler, Update, CallbackContext
-
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, CallbackContext
 from stocks import get_yesterday_trading_prices
 from stocks import get_current_trading_prices
 
