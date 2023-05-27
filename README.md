@@ -88,3 +88,8 @@ $ pre-commit install
 ```sh
 pytest
 ```
+
+Если вы хотите запустить один конакретный тест, передайте аргументом "{название_файла}::{название_функции}", пример:
+```sh
+pytest test_sample.py::test_yesterday_trading_prices
+```
