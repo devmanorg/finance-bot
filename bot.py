@@ -2,11 +2,13 @@ import datetime
 from textwrap import dedent
 from typing import cast
 
+import click
 from pydantic import BaseSettings
 from telegram import Update, Chat
 from telegram.ext import Updater, CommandHandler, CallbackContext, JobQueue
 from stocks import get_yesterday_trading_prices
 from stocks import get_current_trading_prices
+from watchfiles import run_process
 
 
 class Settings(BaseSettings):
@@ -96,7 +98,8 @@ def yesterday_stocks_job(context: CallbackContext) -> None:
     context.bot.send_message(chat_id=chat_id, text=msg)
 
 
-def main(settings: Settings) -> None:
+def run_bot() -> None:
+    settings = Settings()
     updater = Updater(settings.TELEGRAM_BOT_TOKEN)
 
     dispatcher = updater.dispatcher   # type: ignore
@@ -107,5 +110,15 @@ def main(settings: Settings) -> None:
     updater.idle()
 
 
+@click.command()
+@click.option('--autoreload', default=False, is_flag=True)
+def main(autoreload: bool) -> None:
+    if autoreload:
+        print('Autoreload is enabled.')
+        run_process('.', target=run_bot)
+    else:
+        run_bot()
+
+
 if __name__ == '__main__':
-    main(Settings())
+    main()
