@@ -2,8 +2,8 @@ import datetime
 from textwrap import dedent
 
 from pydantic import BaseSettings
-from telegram.ext import Updater, CommandHandler, Update, CallbackContext
-
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, CallbackContext
 from stocks import get_yesterday_trading_prices
 from stocks import get_current_trading_prices
 
@@ -92,7 +92,7 @@ def yesterday_stocks_job(context: CallbackContext) -> None:
 
 
 def main(settings: Settings) -> None:
-    updater = Updater(Settings.TELEGRAM_BOT_TOKEN)
+    updater = Updater(settings.TELEGRAM_BOT_TOKEN)
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler("start", start))
@@ -103,4 +103,4 @@ def main(settings: Settings) -> None:
 
 
 if __name__ == '__main__':
-    main()
+    main(Settings())
