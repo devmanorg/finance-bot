@@ -14,21 +14,18 @@
 1. [Как развернуть local-окружение](#local-setup)
 2. [Как вести разработку](#development)
     1. [Как обновить local-окружение](#update-local-env)
-    2. [Как запустить линтеры Python](#run-python-linters)
-    3. [Как установить npm-пакет](#add-npm-package)
-    4. [Как установить python-пакет](#add-python-package)
-    5. [Как перезалить тестовые данные](#recreate-db)
-    6. [Как запустить тесты](#run-tests)
-    7. [Как сдампить тестовую БД](#create-db-backup)
-3. [Sandbox server](#sandbox)
-4. [Рекомендации](#recommendations)
-5. [Соглашения по Client-Side](#client-side-guidelines)
-6. [More docs](#extra-docs)
+    2. [Как закоммитить код](#how-to-commit)
+    3. [Как запустить линтеры Python](#run-python-linters)
+    4. [Как запустить тесты](#run-tests)
 
-<a name="local-setup"></a>
-## Как развернуть local-окружение
 
-Для запуска ПО вам понадобятся консольный Git и Python версий выше 3.7. Инструкции по их установке:
+<a name="development"></a>
+## Как вести разработку
+
+<a name="update-local-env"></a>
+#### Как развернуть local-окружение
+
+Для запуска ПО вам понадобятся консольный Git и Python версий выше 3.10. Инструкции по их установке:
 
 - [Install Git](https://git-scm.com/book/ru/v2/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5-%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-Git)
 - [Download Python](https://www.python.org/downloads/)
@@ -38,6 +35,25 @@
 $ git clone https://github.com/devmanorg/finance-bot
 $ cd finance-bot
 ```
+Установите менеджер зависимостей [Poetry](https://python-poetry.org/docs/), если ещё не установлен. Затем, активируйте окружение:
+```sh
+poetry shell
+```
+
+И соберите зависимости:
+```sh
+poetry install
+```
+
+Далее, создайте тестового бота у [@BotFather](https://t.me/BotFather), получите от него токен такого вида:
+```sh
+9387204215:QELDaGlFj-l9IUfB2rpk-CANFub4B8g3
+```
+
+<...Создайте переменные окружения>
+
+<a name="how-to-commit"></a>
+#### Как закоммитить код
 
 В репозитории используются хуки pre-commit, чтобы автоматически запускать линтер и тесты. Перед началом разработки установите [pre-commit package manager](https://pre-commit.com/).
 
@@ -46,3 +62,12 @@ $ cd finance-bot
 ```sh
 $ pre-commit install
 ```
+
+<a name="run-python-linters"></a>
+#### Как запустить линтеры Python
+
+
+
+
+<a name="run-tests"></a>
+#### Как запустить тесты
