@@ -54,7 +54,7 @@ def format_ticker_stats(ticker: str, amount: int, open_price: float, close_price
 
 
 def current_stocks(update: Update, context: CallbackContext) -> None:
-    msg = f'Ваши фин. показатели на текущий момент:\n\n'
+    msg = 'Ваши фин. показатели на текущий момент:\n\n'
 
     day_revenue = 0
 
@@ -71,7 +71,7 @@ def current_stocks(update: Update, context: CallbackContext) -> None:
 
 
 def yesterday_stocks_job(context: CallbackContext) -> None:
-    msg = f'Ваши фин. показатели по итогу прошлого дня:\n\n'
+    msg = 'Ваши фин. показатели по итогу прошлого дня:\n\n'
 
     day_revenue = 0
 
