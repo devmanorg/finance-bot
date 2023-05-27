@@ -31,13 +31,12 @@ def start(update: Update, context: CallbackContext) -> None:
     # This needed to exclude the situation when
     # user presses /start multiple times and gets multiple jobs
     job_title = f'yesterday-stocks#{chat_id}'
-    if job_title in [job.name for job in context.job_queue.jobs()]:
-        return
-    context.job_queue.run_daily(
-        yesterday_stocks_job,
-        time=datetime.time(hour=7),
-        name=job_title,
-    )
+    if job_title not in {job.name for job in context.job_queue.jobs()}:
+        context.job_queue.run_daily(
+            yesterday_stocks_job,
+            time=datetime.time(hour=7),
+            name=job_title,
+        )
 
 
 def format_ticker_stats(ticker: str, amount: int, open_price: float, close_price: float) -> str:
